@@ -14,7 +14,7 @@ ECART=[
 
 @app.route('/ecart', methods=['GET'])
 def ecart():
-    return jsonify({"ecart": ECART}), 200
+    return jsonify({"ecart": ECART})
 
 @app.route('/order', methods=['POST'])
 @jwt_required()
@@ -27,4 +27,5 @@ def order():
     return jsonify({"msg": "Order placed successfully", "item":item})
 
 if __name__ == "__main__":
+
     app.run(debug=True, port=5001)
