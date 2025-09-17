@@ -18,10 +18,10 @@ def data():
 
     # Check for missing fields
     if not all([name, email, year_of_passing, studying_year, enter_password, confirm_password]):
-        return "Missing required fields", 400
+        return "Missing required fields"
 
     if enter_password != confirm_password:
-        return "Enter your correct password", 400
+        return "Enter your correct password"
     else:
         conn = psycopg2.connect(
             dbname="ecommerce",
@@ -38,7 +38,7 @@ def data():
         conn.commit()
         cur.close()
         conn.close()
-        return "User inserted successfully", 200
+        return "User inserted successfully"
 
 @app.route("/login", methods=['POST'])
 def login():
@@ -46,7 +46,7 @@ def login():
     emails=data.get('email')
     password=data.get('password')
     if not emails or not password:
-        return "Missing email or password", 400
+        return "Missing email or password"
     conn = psycopg2.connect(
         dbname="ecommerce",
         user="postgres",
@@ -66,9 +66,10 @@ def login():
 
     if enter_password==password:
         access_token = create_access_token(identity=email)
-        return jsonify({"message": "login successful", "access_token": access_token}), 200
+        return jsonify({"message": "login successful", "access_token": access_token})
     else:
         return "enter correct password"
 
 if __name__ == "__main__":
+
     app.run(debug=True, port=5000)
